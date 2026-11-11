@@ -1,0 +1,28 @@
+{
+  "name": "@local/dsh-minimax-model-sync",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Keeps an llm-pi-ai provider route's model list in sync with the provider's models endpoint.",
+  "author": "BornCode (https://github.com/borncode-app)",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/borncode-app/dsh-minimax-model-sync.git" },
+  "homepage": "https://github.com/borncode-app/dsh-minimax-model-sync#readme",
+  "bugs": { "url": "https://github.com/borncode-app/dsh-minimax-model-sync/issues" },
+  "keywords": ["dsh","deepseek-harness","dsh-plugin","minimax","models","sync","llm"],
+  "exports": {
+    ".": "./index.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg"
+  ],
+  "dependencies": {
+    "@deepseek-ai/schemastery": "~3.19.0"
+  },
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } }
+}

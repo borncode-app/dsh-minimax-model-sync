@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "MiniMax model list sync",
+    "description": "Keeps the MiniMax provider route's model list equal to the models the MiniMax endpoint advertises."
+  }
+}

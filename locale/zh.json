@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "同步 MiniMax 模型列表",
+    "description": "让 MiniMax 路由的模型列表与 MiniMax 接口公布的模型保持一致。"
+  }
+}

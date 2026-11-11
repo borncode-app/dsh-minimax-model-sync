@@ -1,0 +1,25 @@
+# Inserts the model-list sync row into the profile composition.
+- insert:
+    - id: minimax-model-sync
+      name: '@local/dsh-minimax-model-sync'
+      config:
+        # The llm-pi-ai profile entry whose provider route is kept in sync.
+        settingsNs: llm-pi-ai
+        # The provider route inside that entry.
+        route: minimax-api
+        # Endpoint that serves the model listing. The Anthropic-compatible root
+        # lists at {baseURL}/v1/models; the OpenAI-compatible root at {baseURL}/models.
+        baseURL: https://api.minimax.io/anthropic
+        api: anthropic-messages
+        # Models to leave out even when the endpoint advertises them. The M2
+        # family is retired on MiniMax's side; the endpoint still lists it.
+        exclude:
+          - MiniMax-M2
+          - MiniMax-M2.1
+          - MiniMax-M2.1-highspeed
+          - MiniMax-M2.5
+          - MiniMax-M2.5-highspeed
+          - MiniMax-M2.7
+          - MiniMax-M2.7-highspeed
+        # How often the list is refreshed, in minutes. Zero refreshes only at start.
+        refreshMinutes: 360
