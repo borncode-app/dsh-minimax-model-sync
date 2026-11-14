@@ -1,3 +1,23 @@
+> **This repository has moved into one monorepo.**
+>
+> The whole MiniMax set — the credit proxy, the daily check-in, the model-list
+> sync, the composer quota chip, the MiniMax Code bridge, and the shared grant
+> reader — now lives in
+> **[`borncode-app/dsh-minimax-kit`](https://github.com/borncode-app/dsh-minimax-kit)**,
+> one repository with one Plugins entry.
+>
+> | this repo | new home |
+> |---|---|
+> | `dsh-minimax-auth` | `packages/dsh-minimax-auth` |
+> | `dsh-minimax-credit` | `packages/dsh-minimax-credit` |
+> | `dsh-minimax-checkin` | `packages/dsh-minimax-checkin` |
+> | `dsh-minimax-model-sync` | `packages/dsh-minimax-model-sync` |
+> | `dsh-minimax-bridge` | `packages/dsh-minimax-bridge` |
+> | `dsh-model-quota` | `packages/dsh-model-quota` |
+>
+> The code and its history are unchanged; only the repository is shared. Install
+> `dsh-minimax-kit` instead of the individual bundles. This repository stays
+> open so the old links keep working.
 <div align="center">
   <img src="icon.svg" alt="" width="72" height="72">
   <h1>dsh-minimax-model-sync</h1>
@@ -20,7 +40,7 @@ This plugin, `dsh-minimax-credit`, `dsh-minimax-checkin`, `dsh-model-quota` and
 
 Install the kit instead if you want the whole MiniMax set from a single
 **Plugins** entry. It ships these same packages as separate rows, so the code
-here is unchanged and each part keeps its own switch — this repository stays
+here is unchanged and each part keeps its own switch â€” this repository stays
 the home of the model-list sync.
 
 ## What it does
@@ -28,19 +48,19 @@ the home of the model-list sync.
 An `llm-pi-ai` route carries a hand-written list of models. Providers retire and launch models without warning,
 so that list drifts: a model disappears and the picker offers a dead route, or a new one exists and you never see it.
 
-This plugin reads the provider's own models endpoint and **rewrites the route's model list** to match — with an
+This plugin reads the provider's own models endpoint and **rewrites the route's model list** to match â€” with an
 explicit `exclude` list for models the endpoint still advertises but you never want.
 
 It is one small row, no UI, no background polling storm: it syncs at boot and then on a slow interval.
 
 ## Features
 
-- **Endpoint-driven** — Anthropic-compatible roots list at `{baseURL}/v1/models`, OpenAI-compatible at `{baseURL}/models`; both are supported.
-- **Reaches into the right entry** — `settingsNs` + `route` say exactly which profile entry and provider are rewritten.
-- **Exclude list** — keeps retired families (the MiniMax M2 line, for example) out even though the endpoint still lists them.
-- **Slow refresh** — `refreshMinutes: 360` by default; `0` syncs only at start.
-- **Status file** — `sync-status.json` records the last run: when, why, whether anything changed, and the resulting models.
-- **No credentials of its own** — it reuses whatever the route already uses.
+- **Endpoint-driven** â€” Anthropic-compatible roots list at `{baseURL}/v1/models`, OpenAI-compatible at `{baseURL}/models`; both are supported.
+- **Reaches into the right entry** â€” `settingsNs` + `route` say exactly which profile entry and provider are rewritten.
+- **Exclude list** â€” keeps retired families (the MiniMax M2 line, for example) out even though the endpoint still lists them.
+- **Slow refresh** â€” `refreshMinutes: 360` by default; `0` syncs only at start.
+- **Status file** â€” `sync-status.json` records the last run: when, why, whether anything changed, and the resulting models.
+- **No credentials of its own** â€” it reuses whatever the route already uses.
 
 ## Requirements
 
@@ -80,12 +100,12 @@ Point it at another provider by changing all four of `settingsNs` / `route` / `b
 ## How it works
 
 ```
-boot / interval ──▶ GET {baseURL}/v1/models ──▶ subtract `exclude`
-                            │
-                            ▼
+boot / interval â”€â”€â–¶ GET {baseURL}/v1/models â”€â”€â–¶ subtract `exclude`
+                            â”‚
+                            â–¼
                   rewrite profile entry models[]
-                            │
-                            ▼
+                            â”‚
+                            â–¼
                    sync-status.json  (at / ok / trigger / changed / models)
 ```
 
@@ -101,17 +121,17 @@ without touching your patch file by hand.
 | `locale/{en,th,zh}.json` | UI strings |
 | `icon.svg` | plugin icon |
 
-## ภาษาไทย
+## à¸ à¸²à¸©à¸²à¹„à¸—à¸¢
 
-`llm-pi-ai` route หนึ่ง ๆ เก็บรายการโมเดลไว้แบบเขียนมือ พอผู้ให้บริการปลด/ออกโมเดลใหม่ รายการนั้นก็เริ่มเน่า —
-Plugin นี้ไปอ่าน `/v1/models` ของผู้ให้บริการแล้ว **เขียนรายการโมเดลใน route ให้ตรงกับของจริง**
+`llm-pi-ai` route à¸«à¸™à¸¶à¹ˆà¸‡ à¹† à¹€à¸à¹‡à¸šà¸£à¸²à¸¢à¸à¸²à¸£à¹‚à¸¡à¹€à¸”à¸¥à¹„à¸§à¹‰à¹à¸šà¸šà¹€à¸‚à¸µà¸¢à¸™à¸¡à¸·à¸­ à¸žà¸­à¸œà¸¹à¹‰à¹ƒà¸«à¹‰à¸šà¸£à¸´à¸à¸²à¸£à¸›à¸¥à¸”/à¸­à¸­à¸à¹‚à¸¡à¹€à¸”à¸¥à¹ƒà¸«à¸¡à¹ˆ à¸£à¸²à¸¢à¸à¸²à¸£à¸™à¸±à¹‰à¸™à¸à¹‡à¹€à¸£à¸´à¹ˆà¸¡à¹€à¸™à¹ˆà¸² â€”
+Plugin à¸™à¸µà¹‰à¹„à¸›à¸­à¹ˆà¸²à¸™ `/v1/models` à¸‚à¸­à¸‡à¸œà¸¹à¹‰à¹ƒà¸«à¹‰à¸šà¸£à¸´à¸à¸²à¸£à¹à¸¥à¹‰à¸§ **à¹€à¸‚à¸µà¸¢à¸™à¸£à¸²à¸¢à¸à¸²à¸£à¹‚à¸¡à¹€à¸”à¸¥à¹ƒà¸™ route à¹ƒà¸«à¹‰à¸•à¸£à¸‡à¸à¸±à¸šà¸‚à¸­à¸‡à¸ˆà¸£à¸´à¸‡**
 
-- ระบุเป้าหมายด้วย `settingsNs` + `route` (ค่าเริ่มต้น: entry `llm-pi-ai` / route `minimax-api`)
-- `exclude` กันตระกูลที่ปลดระวางแล้วแต่อีเอนด์พอยต์ยัง list อยู่ (เช่นตระกูล M2)
-- `refreshMinutes: 360` = เช็คทุก 6 ชั่วโมง, ตั้ง `0` = เช็คแค่ตอนบูต
-- ผลล่าสุดดูได้ที่ `sync-status.json` (เวลา / trigger / changed / models)
-- ไม่มี UI และไม่มี credential ของตัวเอง — ใช้ของ route เดิม
+- à¸£à¸°à¸šà¸¸à¹€à¸›à¹‰à¸²à¸«à¸¡à¸²à¸¢à¸”à¹‰à¸§à¸¢ `settingsNs` + `route` (à¸„à¹ˆà¸²à¹€à¸£à¸´à¹ˆà¸¡à¸•à¹‰à¸™: entry `llm-pi-ai` / route `minimax-api`)
+- `exclude` à¸à¸±à¸™à¸•à¸£à¸°à¸à¸¹à¸¥à¸—à¸µà¹ˆà¸›à¸¥à¸”à¸£à¸°à¸§à¸²à¸‡à¹à¸¥à¹‰à¸§à¹à¸•à¹ˆà¸­à¸µà¹€à¸­à¸™à¸”à¹Œà¸žà¸­à¸¢à¸•à¹Œà¸¢à¸±à¸‡ list à¸­à¸¢à¸¹à¹ˆ (à¹€à¸Šà¹ˆà¸™à¸•à¸£à¸°à¸à¸¹à¸¥ M2)
+- `refreshMinutes: 360` = à¹€à¸Šà¹‡à¸„à¸—à¸¸à¸ 6 à¸Šà¸±à¹ˆà¸§à¹‚à¸¡à¸‡, à¸•à¸±à¹‰à¸‡ `0` = à¹€à¸Šà¹‡à¸„à¹à¸„à¹ˆà¸•à¸­à¸™à¸šà¸¹à¸•
+- à¸œà¸¥à¸¥à¹ˆà¸²à¸ªà¸¸à¸”à¸”à¸¹à¹„à¸”à¹‰à¸—à¸µà¹ˆ `sync-status.json` (à¹€à¸§à¸¥à¸² / trigger / changed / models)
+- à¹„à¸¡à¹ˆà¸¡à¸µ UI à¹à¸¥à¸°à¹„à¸¡à¹ˆà¸¡à¸µ credential à¸‚à¸­à¸‡à¸•à¸±à¸§à¹€à¸­à¸‡ â€” à¹ƒà¸Šà¹‰à¸‚à¸­à¸‡ route à¹€à¸”à¸´à¸¡
 
 ## License
 
-[MIT](LICENSE) © 2026 BornCode
+[MIT](LICENSE) Â© 2026 BornCode
